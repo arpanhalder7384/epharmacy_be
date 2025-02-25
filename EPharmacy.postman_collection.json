@@ -1,0 +1,312 @@
+{
+	"info": {
+		"_postman_id": "70353751-5c85-4e2b-8639-db3a0f2e18af",
+		"name": "EPharmacy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31637614"
+	},
+	"item": [
+		{
+			"name": "User management",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerName\": \"Arpan Halder\",\n  \"customerEmailId\": \"arpanhalder@example.com\",\n  \"contactNumber\": \"8918449078\",\n  \"password\": \"Password123@\",\n  \"gender\": \"Male\",\n  \"dateOfBirth\": \"1999-09-21\",\n  \"address\": {\n    \"addressName\": \"Home\",\n    \"addressLine1\": \"123 Main Street\",\n    \"addressLine2\": \"Apt 4B\",\n    \"area\": \"Karanjali Market\",\n    \"city\": \"Karanjali\",\n    \"state\": \"WB\",\n    \"pincode\": \"743348\"\n  }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5001/customer-api/customer/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerEmailId\": \"arpanhalder@example.com\",\n  \"password\": \"Password124@\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5001/customer-api/customer/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"67be95bdd0245d5e2e25d651\",\n    \"customerName\": \"Arpan Halder\",\n    \"contactNumber\": \"8918449079\",\n    \"gender\": \"Male\",\n    \"dateOfBirth\": \"1999-06-15\",\n    \"address\": {\n        \"addressName\": \"Home\",\n        \"addressLine1\": \"456 New Street\",\n        \"addressLine2\": \"Suite 10\",\n        \"area\": \"Uptown\",\n        \"city\": \"Los Angeles\",\n        \"state\": \"CA\",\n        \"pincode\": \"90001\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5001/customer-api/customer/updateProfile"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerEmailId\": \"arpanhalder@example.com\",\n    \"oldPassword\": \"Password123@\",\n    \"newPassword\": \"Password124@\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5001/customer-api/customer/updatePassword"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MedicineManagement",
+			"item": [
+				{
+					"name": "Get All Medicines",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5002/medicine-api/medicines/pageNumber/1/pageSize/5?sortBy=price&order=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5002",
+							"path": [
+								"medicine-api",
+								"medicines",
+								"pageNumber",
+								"1",
+								"pageSize",
+								"5"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "price"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Medicine By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5002/medicine-api/medicines/101"
+					},
+					"response": []
+				},
+				{
+					"name": "Medicine Categogy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5002/medicine-api/medicines/category/Alopathy"
+					},
+					"response": []
+				},
+				{
+					"name": "update-stoc",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"orderedQuantity\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5002/medicine-api/medicines/update-stock/medicine/101\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Medicine By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5002/medicine-api/medicines/search?name=para",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5002",
+							"path": [
+								"medicine-api",
+								"medicines",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "para"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart Management",
+			"item": [
+				{
+					"name": "fetch cart by costomerid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5003/cart-api/medicines/customer/67bdad10a31da91ad399b0f2"
+					},
+					"response": []
+				},
+				{
+					"name": "add item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"quantity\": 2\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5003/cart-api/add-medicine/101/customer/67bdad10a31da91ad399b0f2"
+					},
+					"response": []
+				},
+				{
+					"name": "updare cart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quantity\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5003/cart-api/update-quantity/medicine/101/customer/67bdad10a31da91ad399b0f2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OrderManagement",
+			"item": [
+				{
+					"name": "placeOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerId\": \"12345\",\n  \"deliveryAddress\": { \"addressId\": \"67890\" },\n  \"card\": {\n    \"cardId\": \"112233\",\n    \"cvv\": \"123\",\n    \"nameOnCard\": \"John Doe\",\n    \"cardType\": \"DEBIT\",\n    \"expiryDate\": \"2025-12-31\",\n    \"customerId\": \"12345\"\n  },\n  \"orderValueBeforeDiscount\": 500\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5004/order-api/place-order"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PaymentManagement",
+			"item": [
+				{
+					"name": "Make Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cardId\": \"112233\",\n  \"nameOnCard\": \"John Doe\",\n  \"cardType\": \"DEBIT\",\n  \"cvv\": \"123\",\n  \"expiryDate\": \"2025-12-31\",\n  \"customerId\": \"12345\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5005/payment-api/amount/500"
+					},
+					"response": []
+				},
+				{
+					"name": "view-cards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5005/payment-api/view-cards/12345"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cardId\": \"0123456789123456\",\n  \"nameOnCard\": \"John Doe\",\n  \"cardType\": \"DEBIT\",\n  \"cvv\": \"123\",\n  \"expiryDate\": \"2025-12-31\",\n  \"customerId\": \"12345\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5005/payment-api/add-card"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
