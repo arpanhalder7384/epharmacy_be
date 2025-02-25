@@ -1,0 +1,29 @@
+{
+    "name": "medicine-management",
+    "version": "1.0.0",
+    "description": "Medicine Management Microservice for ePharmacy",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "mongoose": "^6.13.8",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.22"
+    },
+    "keywords": [
+        "medicine",
+        "microservice",
+        "nodejs",
+        "express",
+        "mongodb"
+    ],
+    "author": "Your Name",
+    "license": "MIT"
+}
