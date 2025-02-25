@@ -1,7 +1,7 @@
 const e = require("cors");
 const Cart = require("../models/cartModel");
 const Medicine = require("../models/medicineModel");
-const User = require("../models/userModel");
+const User = require("../models/userModel"); 
 
 // Add Medicine to Cart
 exports.addToCart = async (req, res) => {
