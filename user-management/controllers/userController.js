@@ -6,6 +6,10 @@ const registerUser = async (req, res) => {
     const { customerName, customerEmailId, contactNumber, password, gender, dateOfBirth, address } = req.body;
 
     try {
+
+        if (!customerName || !customerEmailId || !password || !gender || !address || !dateOfBirth || !contactNumber) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
         const existingUser = await User.findOne({ customerEmailId });
         if (existingUser) return res.status(400).json({ message: "User already exists" });
 
@@ -33,9 +37,11 @@ const loginUser = async (req, res) => {
     const { customerEmailId, password } = req.body;
 
     try {
+        if (!customerEmailId || !password) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
         const user = await User.findOne({ customerEmailId });
         if (!user) return res.status(400).json({ message: "Invalid Credentials" });
-
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: "Invalid Credentials" });
 
@@ -47,9 +53,9 @@ const loginUser = async (req, res) => {
 
 const updateProfile = async (req, res) => {
     const { customerName, contactNumber, gender, dateOfBirth, address } = req.body;
-    const userId = req.user.id;
+    const userId = req.body.id;
 
-    try {
+    try { 
         const user = await User.findById(userId);
         if (!user) return res.status(404).json({ message: "User not found" });
 
@@ -66,4 +72,25 @@ const updateProfile = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, updateProfile };
+const updatePassword = async (req, res) => {
+    const { oldPassword, newPassword, customerEmailId } = req.body;
+    if (!customerEmailId || !newPassword || !oldPassword) {
+        return res.status(400).json({ message: "Missing required fields" });
+    }
+    try { 
+        const user = await User.findOne({customerEmailId:customerEmailId});
+
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) return res.status(404).json({ message: "User not found" });
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        user.password = hashedPassword|| user.password;
+
+        await user.save();
+        res.status(200).json({ message: "Profile Updated Successfully", user });
+    } catch (error) {
+        res.status(500).json({ message: "Server Error" });
+    }
+};
+
+module.exports = { registerUser, loginUser, updateProfile, updatePassword };
