@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
+const { generateToken } = require("../utils/jwt");
 
 // Register User
 const registerUser = async (req, res) => {
@@ -23,9 +24,10 @@ const registerUser = async (req, res) => {
             dateOfBirth,
             address
         });
+        const token = generateToken(newUser);
 
         await newUser.save();
-        res.status(201).json({ message: "User Registered Successfully" });
+        res.status(201).json({ message: "User Registered Successfully", token });
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: "Server Error" });
@@ -44,19 +46,20 @@ const loginUser = async (req, res) => {
         if (!user) return res.status(400).json({ message: "Invalid Credentials" });
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: "Invalid Credentials" });
-
-        res.status(200).json({ message: "Login Successful", customerId: user._id });
+        const token = generateToken(user);
+        res.status(200).json({ message: "Login Successful", token });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: "Server Error" });
     }
 };
 
 const updateProfile = async (req, res) => {
     const { customerName, contactNumber, gender, dateOfBirth, address } = req.body;
-    const userId = req.body.id;
+    const customerEmailId = req.body.customerEmailId;
 
     try { 
-        const user = await User.findById(userId);
+        const user = await User.findOne({customerEmailId:customerEmailId});
         if (!user) return res.status(404).json({ message: "User not found" });
 
         user.customerName = customerName || user.customerName;
