@@ -69,7 +69,7 @@ const updateProfile = async (req, res) => {
     const userId = req.params.customerId;
 
     try { 
-        const user = await User.findById(userId);
+        const user = await User.findOne({customerEmailId:customerEmailId});
         if (!user) return res.status(404).json({ message: "User not found" });
 
         user.customerName = customerName || user.customerName;
